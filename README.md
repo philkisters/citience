@@ -6,4 +6,4 @@
 # Citience
 
 Citience (mix of 'citizen' and 'science') is an open data space enabling citizens to participate and provide locally managed data to public services.
-These services can either generate new higher grade information that is further consumable by other services or end-user applications.
+These services can either generate new higher grade information that are further consumable by other services or provide end-user applications.
