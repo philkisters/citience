@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.citience</groupId>
+    <artifactId>citience-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>0.0.1</version>
+    <modules>
+        <module>backend</module>
+    </modules>
+
+    <name>Citience: Parent Package</name>
+    <url>https://citience.org/</url>
+
+    <organization>
+        <name>Philipp Kisters</name>
+        <url>https://citience.org/</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>kisters</id>
+            <name>Philipp Kisters</name>
+            <email>philipp.kisters@uni-hamburg.de</email>
+            <organization>Philipp Kisters</organization>
+            <organizationUrl>https://citience.org/</organizationUrl>
+            <roles>
+                <role>founder</role>
+                <role>developer</role>
+            </roles>
+            <timezone>Europe/Berlin</timezone>
+        </developer>
+    </developers>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+    
+</project>
