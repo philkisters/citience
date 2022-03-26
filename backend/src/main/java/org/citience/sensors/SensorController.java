@@ -1,16 +1,17 @@
 package org.citience.sensors;
 
 import org.citience.communication.CommunicationService;
+import org.citience.communication.events.SensorCreationEvent;
+import org.citience.communication.events.SensorReadingEvent;
 import org.citience.data.SensorRepository;
 import org.citience.models.sensors.Sensor;
 import org.citience.models.sensors.SensorInfo;
+import org.citience.models.sensors.SensorReading;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
 public class SensorController {
@@ -32,6 +33,18 @@ public class SensorController {
     public Sensor createSensor(@RequestBody SensorInfo info) {
         Sensor sensor = new Sensor(info);
         sensor = sensorRepository.save(sensor);
+        communicationService.publishCommunicationEvent(new SensorCreationEvent(info));
         return sensor;
+    }
+
+    @PostMapping("/{id}/publish")
+    public SensorReading publishSensorReading(@PathVariable(name="id") String id, @RequestBody SensorReading sensorReading) {
+        AtomicReference<SensorReading> result = new AtomicReference<>();
+        sensorRepository.findById(id).ifPresentOrElse((sensor) -> {
+            communicationService.publishCommunicationEvent(new SensorReadingEvent(sensor.getInfo(), sensorReading));
+            result.set(sensorReading);
+        }, () -> result.set(null));
+
+        return result.get();
     }
 }
