@@ -19,6 +19,8 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <mockito.version>3.12.4</mockito.version>
+        <drasyl.version>0.7.0</drasyl.version>
+        <skabnet.version>1.2-SNAPSHOT</skabnet.version>
     </properties>
 
     <dependencies>
@@ -85,7 +87,32 @@
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Drasyl -->
+        <dependency>
+            <groupId>org.drasyl</groupId>
+            <artifactId>drasyl-node</artifactId>
+            <version>0.7.0</version>
+        </dependency>
+
+        <!-- SkABNet Network -->
+        <dependency>
+            <groupId>org.skabnet</groupId>
+            <artifactId>core</artifactId>
+            <version>${skabnet.version}</version>
+        </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>gitlab-maven</id>
+            <url>https://git.informatik.uni-hamburg.de/api/v4/projects/${env.CI_PROJECT_ID}/packages/maven</url>
+        </repository>
+        <snapshotRepository>
+            <id>gitlab-maven</id>
+            <url>https://git.informatik.uni-hamburg.de/api/v4/projects/${env.CI_PROJECT_ID}/packages/maven</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <build>
         <plugins>
