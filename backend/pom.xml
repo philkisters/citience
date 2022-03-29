@@ -98,7 +98,7 @@
         <!-- SkABNet Network -->
         <dependency>
             <groupId>org.skabnet</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>skabnet</artifactId>
             <version>${skabnet.version}</version>
         </dependency>
     </dependencies>
