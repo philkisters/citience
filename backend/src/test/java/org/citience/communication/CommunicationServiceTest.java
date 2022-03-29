@@ -58,13 +58,13 @@ class CommunicationServiceTest {
     void subscribeToCommunicationEvent() {
         Assertions.assertEquals(0, communicationService.getConsumers().size());
 
-        communicationService.subscribeToCommunicationEvent(new DemoEvent(), new DemoConsumer());
+        communicationService.subscribeToCommunicationEvent(DemoEvent.EVENT_NAME, new DemoConsumer());
 
         Assertions.assertEquals(1, communicationService.getConsumers().size());
         Assertions.assertTrue(communicationService.getConsumers().containsKey("DemoEvent"));
         Assertions.assertEquals(1, communicationService.getConsumers().get("DemoEvent").size());
 
-        communicationService.subscribeToCommunicationEvent(new DemoEvent(), new DemoConsumer());
+        communicationService.subscribeToCommunicationEvent(DemoEvent.EVENT_NAME, new DemoConsumer());
 
         Assertions.assertEquals(1, communicationService.getConsumers().size());
         Assertions.assertEquals(2, communicationService.getConsumers().get("DemoEvent").size());
@@ -79,9 +79,10 @@ class CommunicationServiceTest {
     }
 
     class DemoEvent implements CommunicationEvent {
+        public static final String EVENT_NAME = "demo";
         @Override
         public String getEventName() {
-            return "DemoEvent";
+            return EVENT_NAME;
         }
     }
 

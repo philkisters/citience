@@ -31,12 +31,8 @@ public class CommunicationService {
         }
     }
 
-    public void subscribeToCommunicationEvent(CommunicationEvent event, CommunicationEventConsumer consumer) {
-        if (!consumers.containsKey(event.getEventName())) {
-            log.debug("No subscribers for this event so far, creating new entry for the event '{}'.", event.getEventName());
-            consumers.put(event.getEventName(), new ArrayList<>());
-        }
-        consumers.get(event.getEventName()).add(consumer);
+    public void subscribeToCommunicationEvent(final String eventName, CommunicationEventConsumer consumer) {
+        consumers.computeIfAbsent(eventName, eventList -> new ArrayList<>()).add(consumer);
     }
 
     Map<String, List<CommunicationEventConsumer>> getConsumers() {
