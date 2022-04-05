@@ -20,8 +20,15 @@
         <maven.compiler.target>17</maven.compiler.target>
         <mockito.version>3.12.4</mockito.version>
         <drasyl.version>0.7.0</drasyl.version>
-        <skabnet.version>1.2-SNAPSHOT</skabnet.version>
+        <skabnet.version>1.2</skabnet.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>gitlab-maven</id>
+            <url>https://git.informatik.uni-hamburg.de/api/v4/projects/4155/packages/maven</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <!-- Spring -->
@@ -106,11 +113,11 @@
     <distributionManagement>
         <repository>
             <id>gitlab-maven</id>
-            <url>https://git.informatik.uni-hamburg.de/api/v4/projects/${env.CI_PROJECT_ID}/packages/maven</url>
+            <url>https://git.informatik.uni-hamburg.de/api/v4/projects/4155/packages/maven</url>
         </repository>
         <snapshotRepository>
             <id>gitlab-maven</id>
-            <url>https://git.informatik.uni-hamburg.de/api/v4/projects/${env.CI_PROJECT_ID}/packages/maven</url>
+            <url>https://git.informatik.uni-hamburg.de/api/v4/projects/4155/packages/maven</url>
         </snapshotRepository>
     </distributionManagement>
 
