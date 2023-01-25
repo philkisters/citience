@@ -99,7 +99,7 @@
         <dependency>
             <groupId>org.drasyl</groupId>
             <artifactId>drasyl-node</artifactId>
-            <version>0.7.0</version>
+            <version>0.9.0</version>
         </dependency>
 
         <!-- SkABNet Network -->
