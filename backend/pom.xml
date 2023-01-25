@@ -108,6 +108,13 @@
             <artifactId>skabnet</artifactId>
             <version>${skabnet.version}</version>
         </dependency>
+
+        <!-- Jakarta for PostConstruct and PreDestroy annotation -->
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>2.1.1</version>
+        </dependency>
     </dependencies>
 
     <distributionManagement>
