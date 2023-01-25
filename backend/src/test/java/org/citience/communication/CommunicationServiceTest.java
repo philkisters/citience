@@ -79,7 +79,7 @@ class CommunicationServiceTest {
     }
 
     class DemoEvent implements CommunicationEvent {
-        public static final String EVENT_NAME = "demo";
+        public static final String EVENT_NAME = "DemoEvent";
         @Override
         public String getEventName() {
             return EVENT_NAME;
