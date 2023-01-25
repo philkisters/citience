@@ -12,6 +12,9 @@ public class NodeConfiguration {
     @Value("${node.id}")
     private String nodeId;
 
+    @Value("${node.identityPath}")
+    private String identityPath;
+
     public SkABnetConfig getSkABNetConfig() {
         return new SkABnetConfig(ConfigFactory.load("skabnet"));
     }
@@ -22,5 +25,9 @@ public class NodeConfiguration {
 
     public String getReferenceAddress() {
         return referenceAddress;
+    }
+
+    public String getIdentityPath() {
+        return identityPath;
     }
 }

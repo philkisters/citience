@@ -7,6 +7,7 @@ spring:
 
 node:
   id: "Philipp"
+  identityPath: 'C:\Users\Philipp\Entwicklung\Java\citience\backend\src\main\resources'
 
 network:
   reference: ""

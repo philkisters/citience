@@ -56,7 +56,7 @@ public class NetworkService implements NetworkAccess {
         started = false;
 
         final DrasylConfig drasylConfig = DrasylConfig.newBuilder( DrasylConfig.of(ConfigFactory.load("drasyl")))
-                .identityPath(Paths.get("backend","src","main","resources", this.nodeConfiguration.getNodeId() + ".identity.json").toAbsolutePath())
+                .identityPath(Paths.get(this.nodeConfiguration.getIdentityPath(), this.nodeConfiguration.getNodeId() + ".identity.json").toAbsolutePath())
                 .build();
 
         drasylNode = new DrasylNode(drasylConfig) {
