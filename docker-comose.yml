@@ -1,0 +1,12 @@
+version: '3.5'
+
+services:
+  db:
+    image: postgres:12
+    restart: always
+    environment:
+      POSTGRES_USER: citience
+      POSTGRES_PASSWORD: citience
+      POSTGRES_DB: citience
+    ports:
+      - 5432:5432
