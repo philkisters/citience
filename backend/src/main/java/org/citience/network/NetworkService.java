@@ -101,9 +101,8 @@ public class NetworkService implements NetworkAccess {
     public CompletionStage<Void> send(final Address destination,
                                       final AbstractMessage message) {
         log.info("{}: sending message {} to {}", message.getSender().getNameId(), message.getMessageName(), message.getRecipient().getNameId());
-        if (destination instanceof DrasylAddress) {
-            final DrasylAddress address = (DrasylAddress) destination;
-            return drasylNode.send(address.getDrasylAddress(), message);
+        if (destination instanceof DrasylAddress address) {
+            return drasylNode.send(address.address(), message);
         }
 
         throw new IllegalArgumentException("Address must be of type DrasylAddress");

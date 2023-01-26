@@ -3,8 +3,6 @@ package org.citience.models.sensors;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import org.citience.network.DrasylAddress;
-import org.drasyl.identity.IdentityPublicKey;
-import org.drasyl.util.ImmutableByteArray;
 
 import java.util.Objects;
 
@@ -75,9 +73,10 @@ public final class Sensor {
      *
      * @param name Name of the sensor, must contain at least one letter
      * @param type Type of the sensor, must contain at least one letter
+     * @param location Custom location of the sensor
      */
     public Sensor(String name, String type, String location) {
-        this(name, type, "", true, null);
+        this(name, type, location, true, null);
     }
 
     /**

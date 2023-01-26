@@ -38,7 +38,7 @@ public class SensorController {
     @PostMapping("/{id}/publish")
     public SensorReading publishSensorReading(@PathVariable(name="id") Long id, @RequestBody SensorReading sensorReading) {
         AtomicReference<SensorReading> result = new AtomicReference<>();
-        sensorRepository.findById(id).ifPresentOrElse((sensorInfo) -> {
+        sensorRepository.findById(id).ifPresentOrElse(sensorInfo -> {
             communicationService.publishCommunicationEvent(new SensorReadingEvent(sensorInfo, sensorReading));
             result.set(sensorReading);
         }, () -> result.set(null));

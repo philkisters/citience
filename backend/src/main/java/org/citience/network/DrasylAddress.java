@@ -11,29 +11,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.drasyl.identity.IdentityPublicKey;
 import org.skabnet.info.Address;
 
-public class DrasylAddress implements Address {
-    private final IdentityPublicKey drasylAddress;
-
+public record DrasylAddress(IdentityPublicKey address) implements Address {
     @JsonCreator
-    public DrasylAddress(@JsonProperty("drasylAddress") final IdentityPublicKey drasylAddress) {
+    public DrasylAddress(@JsonProperty("address") final IdentityPublicKey address) {
 
-        this.drasylAddress = drasylAddress;
-    }
-
-    public IdentityPublicKey getDrasylAddress() {
-        return drasylAddress;
+        this.address = address;
     }
 
     @JsonIgnore
     @Override
     public String getSerializedAddress() {
-        return drasylAddress.toString();
+        return address.toString();
     }
 
     @Override
     public String toString() {
         return "DrasylAddress{" +
-                "drasylAddress=" + drasylAddress.toString() +
+                "address=" + address.toString() +
                 '}';
     }
 }
