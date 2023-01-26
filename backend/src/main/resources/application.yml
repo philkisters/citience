@@ -5,6 +5,7 @@ spring:
     url: 'jdbc:postgresql://localhost:5432/citience'
     username: 'citience'
     password: 'citience'
+    driverClassName: 'org.postgresql.Driver'
 
   jpa:
     hibernate:
