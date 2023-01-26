@@ -1,13 +1,23 @@
 server:
   port : 8080
 spring:
-  data:
-    mongodb:
-      database: "citience"
+  datasource:
+    url: 'jdbc:postgresql://localhost:5432/citience'
+    username: 'citience'
+    password: 'citience'
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: 'org.hibernate.dialect.PostgreSQLDialect'
+
+springdoc:
+  swagger-ui:
+    path: '/api/documentation.html'
 
 node:
-  id: "Philipp"
+  id: 'Philipp'
   identityPath: 'C:\Users\Philipp\Entwicklung\Java\citience\backend\src\main\resources'
 
 network:
-  reference: ""
+  reference: ''
