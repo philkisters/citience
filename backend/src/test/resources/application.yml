@@ -3,9 +3,9 @@ server:
 spring:
   datasource:
     # For Github-Runner Tests
-    url: 'jdbc:postgres://citience:citience@postgres:5432/citience'
+    # url: 'jdbc:postgres://citience:citience@postgres:5432/citience'
     # For local Tests
-    # url: 'jdbc:postgresql://localhost:5432/citience'
+    url: 'jdbc:postgresql://localhost:5432/citience'
     username: 'citience'
     password: 'citience'
     driverClassName: 'org.postgresql.Driver'
