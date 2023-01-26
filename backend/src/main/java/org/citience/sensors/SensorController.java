@@ -5,15 +5,14 @@ import org.citience.communication.events.SensorCreationEvent;
 import org.citience.communication.events.SensorReadingEvent;
 import org.citience.data.SensorRepository;
 import org.citience.models.sensors.Sensor;
-import org.citience.models.sensors.SensorInfo;
 import org.citience.models.sensors.SensorReading;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
+@RequestMapping("/api/sensors")
 public class SensorController {
     private final CommunicationService communicationService;
     private final SensorRepository sensorRepository;
@@ -25,23 +24,22 @@ public class SensorController {
     }
 
     @GetMapping("/")
-    public List<Sensor> getAllSensors() {
+    public Iterable<Sensor> getAllSensors() {
         return sensorRepository.findAll();
     }
 
     @PostMapping("/")
-    public Sensor createSensor(@RequestBody SensorInfo info) {
-        Sensor sensor = new Sensor(info);
-        sensor = sensorRepository.save(sensor);
+    public Sensor createSensor(@RequestBody Sensor info) {
+        var sensorInfo = sensorRepository.save(info);
         communicationService.publishCommunicationEvent(new SensorCreationEvent(info));
-        return sensor;
+        return sensorInfo;
     }
 
     @PostMapping("/{id}/publish")
-    public SensorReading publishSensorReading(@PathVariable(name="id") String id, @RequestBody SensorReading sensorReading) {
+    public SensorReading publishSensorReading(@PathVariable(name="id") Long id, @RequestBody SensorReading sensorReading) {
         AtomicReference<SensorReading> result = new AtomicReference<>();
-        sensorRepository.findById(id).ifPresentOrElse((sensor) -> {
-            communicationService.publishCommunicationEvent(new SensorReadingEvent(sensor.getInfo(), sensorReading));
+        sensorRepository.findById(id).ifPresentOrElse((sensorInfo) -> {
+            communicationService.publishCommunicationEvent(new SensorReadingEvent(sensorInfo, sensorReading));
             result.set(sensorReading);
         }, () -> result.set(null));
 

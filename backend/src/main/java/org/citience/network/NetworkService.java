@@ -10,7 +10,7 @@ import org.citience.communication.CommunicationService;
 import org.citience.communication.events.CommunicationEvent;
 import org.citience.communication.events.SensorCreationEvent;
 import org.citience.configuration.NodeConfiguration;
-import org.citience.models.sensors.SensorInfo;
+import org.citience.models.sensors.Sensor;
 import org.drasyl.identity.IdentityPublicKey;
 import org.drasyl.node.DrasylConfig;
 import org.drasyl.node.DrasylException;
@@ -134,11 +134,11 @@ public class NetworkService implements NetworkAccess {
 
     public void startSensorPeer(final CommunicationEvent event) {
         if (event instanceof SensorCreationEvent sensorCreationEvent) {
-            SensorInfo info = sensorCreationEvent.sensorInfo();
+            Sensor info = sensorCreationEvent.sensor();
 
             AttributeMap attributeMap = skABnetNode.getAttributeMap();
-            attributeMap.setValueForAttribute(info.sensorName(), Attribute.of("sensorID"));
-            attributeMap.setValueForAttribute(info.sensorType(), Attribute.of("type"));
+            attributeMap.setValueForAttribute(info.getName(), Attribute.of("sensorID"));
+            attributeMap.setValueForAttribute(info.getType(), Attribute.of("type"));
             attributeMap.setValueForAttribute(nodeConfiguration.getNodeId(), Attribute.of("nodeID"));
 
             skABnetNode.put(attributeMap, getAddress());
