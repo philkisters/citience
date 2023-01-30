@@ -2,9 +2,6 @@ server:
   port : 8080
 spring:
   datasource:
-    # For Github-Runner Tests
-    # url: 'jdbc:postgres://citience:citience@postgres:5432/citience'
-    # For local Tests
     url: 'jdbc:postgresql://localhost:5432/citience'
     username: 'citience'
     password: 'citience'
@@ -17,9 +14,9 @@ spring:
 node:
   id: "Test"
   # For Github-Runner Tests
-  identityPath: '/home/runner/work/citience/citience/backend/src/test/resources'
+  # identityPath: '/home/runner/work/citience/citience/backend/src/test/resources'
   # For local Tests
-  # identityPath: 'C:\Users\Philipp\Entwicklung\Java\citience\backend\src\test\resources'
+  identityPath: 'C:\Users\Philipp\Entwicklung\Java\citience\backend\src\test\resources'
 
 network:
   reference: ""

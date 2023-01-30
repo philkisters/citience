@@ -7,8 +7,11 @@ import org.citience.data.SensorRepository;
 import org.citience.models.sensors.Sensor;
 import org.citience.models.sensors.SensorReading;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
@@ -38,11 +41,28 @@ public class SensorController {
     @PostMapping("/{id}/publish")
     public SensorReading publishSensorReading(@PathVariable(name="id") Long id, @RequestBody SensorReading sensorReading) {
         AtomicReference<SensorReading> result = new AtomicReference<>();
-        sensorRepository.findById(id).ifPresentOrElse(sensorInfo -> {
-            communicationService.publishCommunicationEvent(new SensorReadingEvent(sensorInfo, sensorReading));
+        sensorRepository.findById(id).ifPresentOrElse(sensor -> {
+            sensorReading.setSensor(sensor);
+            communicationService.publishCommunicationEvent(new SensorReadingEvent(sensorReading));
             result.set(sensorReading);
-        }, () -> result.set(null));
+        }, () -> {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Sensor not found"
+            );
+        });
 
         return result.get();
+    }
+
+    @GetMapping("/{id}")
+    public Sensor getSensorById(@PathVariable(name="id") Long id) {
+        Optional<Sensor> sensor = sensorRepository.findById(id);
+        if (sensor.isPresent()) {
+            return sensor.get();
+        } else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Sensor not found"
+            );
+        }
     }
 }

@@ -12,10 +12,6 @@ spring:
       ddl-auto: update
     database-platform: 'org.hibernate.dialect.PostgreSQLDialect'
 
-springdoc:
-  swagger-ui:
-    path: '/api/documentation.html'
-
 node:
   id: 'Philipp'
   identityPath: 'C:\Users\Philipp\Entwicklung\Java\citience\backend\src\main\resources'
