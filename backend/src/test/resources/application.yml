@@ -14,9 +14,9 @@ spring:
 node:
   id: "Test"
   # For Github-Runner Tests
-  # identityPath: '/home/runner/work/citience/citience/backend/src/test/resources'
+  identityPath: '/home/runner/work/citience/citience/backend/src/test/resources'
   # For local Tests
-  identityPath: 'C:\Users\Philipp\Entwicklung\Java\citience\backend\src\test\resources'
+  # identityPath: 'C:\Users\Philipp\Entwicklung\Java\citience\backend\src\test\resources'
 
 network:
   reference: ""
