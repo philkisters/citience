@@ -5,18 +5,11 @@
  */
 package org.citience.network;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.drasyl.identity.IdentityPublicKey;
 import org.skabnet.info.Address;
 
 public record DrasylAddress(IdentityPublicKey address) implements Address {
-    @JsonCreator
-    public DrasylAddress(@JsonProperty("address") final IdentityPublicKey address) {
-
-        this.address = address;
-    }
 
     @JsonIgnore
     @Override

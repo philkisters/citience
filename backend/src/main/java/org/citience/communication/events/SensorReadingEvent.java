@@ -1,6 +1,5 @@
 package org.citience.communication.events;
 
-import org.citience.models.sensors.Sensor;
 import org.citience.models.sensors.SensorReading;
 
 /**

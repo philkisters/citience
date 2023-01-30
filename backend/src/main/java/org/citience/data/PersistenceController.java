@@ -4,7 +4,6 @@ import org.citience.communication.CommunicationService;
 import org.citience.communication.events.CommunicationEvent;
 import org.citience.communication.events.SensorCreationEvent;
 import org.citience.communication.events.SensorReadingEvent;
-import org.citience.models.sensors.Sensor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +19,8 @@ public class PersistenceController {
         this.sensorRepository = sensorRepository;
         this.sensorReadingRepository = sensorReadingRepository;
 
-        communicationService.subscribeToCommunicationEvent(SensorCreationEvent.EVENT_NAME, this::handleSensorCreation);
-        communicationService.subscribeToCommunicationEvent(SensorReadingEvent.EVENT_NAME, this::handleNewSensorReading);
+        this.communicationService.subscribeToCommunicationEvent(SensorCreationEvent.EVENT_NAME, this::handleSensorCreation);
+        this.communicationService.subscribeToCommunicationEvent(SensorReadingEvent.EVENT_NAME, this::handleNewSensorReading);
     }
 
     public void handleSensorCreation(CommunicationEvent event) {
