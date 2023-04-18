@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.management.ObjectName;
 import java.nio.file.Paths;
 import java.util.concurrent.CompletionStage;
 
@@ -45,7 +46,10 @@ public class NetworkService implements NetworkAccess {
     private final NodeConfiguration nodeConfiguration;
     private final CommunicationService communicationService;
 
-    private boolean started;
+    private NetworkStatus currentStatus;
+    private Throwable lastException;
+
+    private DrasylAddress referenceAddress;
 
     @Autowired
     NetworkService(NodeConfiguration nodeConfiguration,
@@ -53,7 +57,9 @@ public class NetworkService implements NetworkAccess {
         this.nodeConfiguration = nodeConfiguration;
         this.communicationService = communicationService;
 
-        started = false;
+        this.referenceAddress = nodeConfiguration.getReferenceAddress().isBlank() ? null : new DrasylAddress(IdentityPublicKey.of(nodeConfiguration.getReferenceAddress()));
+
+        currentStatus = NetworkStatus.OFFLINE;
 
         final DrasylConfig drasylConfig = DrasylConfig.newBuilder( DrasylConfig.of(ConfigFactory.load("drasyl")))
                 .identityPath(Paths.get(this.nodeConfiguration.getIdentityPath(), this.nodeConfiguration.getNodeId() + ".identity.json").toAbsolutePath())
@@ -72,16 +78,17 @@ public class NetworkService implements NetworkAccess {
                     skABnetNode.handleMessage(message);
                 }
                 else if (event instanceof NodeOnlineEvent) {
-                    if (started) {
-                        log.warn("Back online! Peer has gone online again.");
+                    if (currentStatus == NetworkStatus.DISCONNECTED) {
+                        log.warn("Back online! Node has gone online again.");
                     }
                     else {
-                        started = true;
                         log.info("We are online. Let's go!");
                     }
+                    currentStatus = NetworkStatus.ONLINE;
                 }
                 else if (event instanceof NodeOfflineEvent) {
-                    log.warn("Peer has gone offline, no messages can be received or sent.");
+                    log.warn("Node has gone offline, no messages can be received or sent.");
+                    currentStatus = NetworkStatus.DISCONNECTED;
                 }
                 else if (event instanceof final InboundExceptionEvent exceptionEvent) {
                     log.warn("Received ExceptionEvent:", exceptionEvent.getError());
@@ -113,8 +120,16 @@ public class NetworkService implements NetworkAccess {
         return new DrasylAddress(drasylNode.identity().getIdentityPublicKey());
     }
 
-    public boolean isStarted() {
-        return started;
+    public NetworkStatus getStatus() {
+        return currentStatus;
+    }
+
+    public DrasylAddress getReferenceAddress() {
+        return referenceAddress;
+    }
+
+    public void setReferenceAddress(String referenceAddress) {
+        this.referenceAddress = new DrasylAddress(IdentityPublicKey.of(referenceAddress));
     }
 
     public void startLocalNode() {
@@ -122,13 +137,7 @@ public class NetworkService implements NetworkAccess {
         PeerInfo localPeerInfo = PeerInfo.fromNameIdAndAddress(AttributeBasedNameId.of("nodeID", nodeConfiguration.getNodeId()), new DrasylAddress(drasylNode.identity().getIdentityPublicKey()));
         final SkABNetPeer localPeer = SkABNetPeer.fromLocalInfoAndRingAmountAndLeafSizeAndSkABNetNode(localPeerInfo, 160, 4, skABnetNode);
 
-        if (!nodeConfiguration.getReferenceAddress().isBlank()) {
-            log.info("--- Joining existing Network ---");
-            skABnetNode.startPeer(localPeer, new DrasylAddress(IdentityPublicKey.of(nodeConfiguration.getReferenceAddress())));
-        } else {
-            log.info("--- Creating new Network ---");
-            skABnetNode.startPeer(localPeer, null);
-        }
+        skABnetNode.startPeer(localPeer, referenceAddress);
     }
 
     public void startSensorPeer(final CommunicationEvent event) {
@@ -147,5 +156,17 @@ public class NetworkService implements NetworkAccess {
     public void shutdown() {
         skABnetNode.shutdown();
         drasylNode.shutdown().toCompletableFuture().join();
+    }
+
+    public long getTimeout() {
+        return nodeConfiguration.getTimeout();
+    }
+
+    public Throwable getLastException() {
+        return lastException;
+    }
+
+    public void setLastException(Throwable lastException) {
+        this.lastException = lastException;
     }
 }

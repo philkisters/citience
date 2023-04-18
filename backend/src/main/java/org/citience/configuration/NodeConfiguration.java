@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Configuration;
 public class NodeConfiguration {
     @Value("${network.reference}")
     private String referenceAddress;
+    @Value("${network.timeout}")
+    private long timeout;
+
     @Value("${node.id}")
     private String nodeId;
 
@@ -29,5 +32,9 @@ public class NodeConfiguration {
 
     public String getIdentityPath() {
         return identityPath;
+    }
+
+    public long getTimeout() {
+        return timeout;
     }
 }

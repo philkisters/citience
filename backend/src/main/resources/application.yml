@@ -18,3 +18,5 @@ node:
 
 network:
   reference: ''
+  # Defines the time after which a connection to the referenced SkABNet is aborted
+  timeout: 60000

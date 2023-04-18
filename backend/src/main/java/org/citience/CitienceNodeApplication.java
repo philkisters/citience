@@ -13,7 +13,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SpringBootApplication
 public class CitienceNodeApplication {
     private static final Logger log = LoggerFactory.getLogger(CitienceNodeApplication.class);
-    private static final long CONNECTION_TIMEOUT = 60000;
 
     @Autowired
     private ApplicationConfiguration config;
@@ -25,28 +24,6 @@ public class CitienceNodeApplication {
 
     public static void main(final String[] args) {
         ctx = SpringApplication.run(CitienceNodeApplication.class, args);
-    }
-
-    @PostConstruct
-    public void startNetwork() throws InterruptedException {
-
-        log.info("--- Starting NetworkManager ---");
-        networkService.start();
-
-        final long connectionStartTime = System.currentTimeMillis();
-
-        while (!networkService.isStarted()) {
-            if (System.currentTimeMillis() - connectionStartTime >= CONNECTION_TIMEOUT) {
-                log.warn("--- No connection could be established shutting application down ---");
-                ctx.close();
-            }
-            log.info("--- Waiting until NetworkManager established a connection. ---");
-            Thread.sleep(1000);
-        }
-
-        log.info("We are online, let's start our local initial peer.");
-        networkService.startLocalNode();
-
     }
 
     @PreDestroy
