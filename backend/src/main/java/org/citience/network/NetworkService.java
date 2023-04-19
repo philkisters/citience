@@ -50,6 +50,7 @@ public class NetworkService implements NetworkAccess {
     private Throwable lastException;
 
     private DrasylAddress referenceAddress;
+    private String nodeName;
 
     @Autowired
     NetworkService(NodeConfiguration nodeConfiguration,
@@ -58,6 +59,7 @@ public class NetworkService implements NetworkAccess {
         this.communicationService = communicationService;
 
         this.referenceAddress = nodeConfiguration.getReferenceAddress().isBlank() ? null : new DrasylAddress(IdentityPublicKey.of(nodeConfiguration.getReferenceAddress()));
+        this.nodeName = nodeConfiguration.getNodeId();
 
         currentStatus = NetworkStatus.OFFLINE;
 
@@ -168,5 +170,9 @@ public class NetworkService implements NetworkAccess {
 
     public void setLastException(Throwable lastException) {
         this.lastException = lastException;
+    }
+
+    public String getNodeName() {
+        return nodeName;
     }
 }

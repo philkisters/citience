@@ -11,19 +11,22 @@ import org.springframework.web.servlet.ModelAndView;
 public class NetworkView {
 
     private final NetworkService networkService;
+    private final ModelAndView modelAndView;
 
     public NetworkView(final NetworkService networkService) {
         this.networkService = networkService;
+        this.modelAndView = new ModelAndView();
+        modelAndView.setViewName("network");
+        modelAndView.getModel().put("view", "network");
     }
 
 
     @GetMapping
     public ModelAndView getNetworkData () {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("network");
-        mv.getModel().put("view", "network");
-        mv.getModel().put("networkStatus", networkService.getStatus().name());
+        modelAndView.getModel().put("nodeName", networkService.getNodeName());
+        modelAndView.getModel().put("networkStatus", networkService.getStatus().name());
+        modelAndView.getModel().put("referenceAddress", networkService.getReferenceAddress() == null ? null : networkService.getReferenceAddress().getSerializedAddress());
 
-        return mv;
+        return modelAndView;
     }
 }

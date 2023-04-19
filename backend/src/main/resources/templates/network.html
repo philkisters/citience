@@ -8,14 +8,25 @@
 <body>
     <section layout:fragment="content">
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <div class="flex-grow-1 rounded border border-zinc-100 md:col-span-2 lg:col-span-3 p-5">Main Content</div>
+            <div class="flex-grow-1 rounded border border-zinc-100 md:col-span-2 lg:col-span-3 p-5">
+                <h3 class="text-lg font-semibold">Network Configuration</h3>
+
+
+                <p th:text="'Node name: ' + ${nodeName}">Node name: ~</p>
+                <p th:text="'Reference Address: ' + ${referenceAddress}">Reference Address: 'None'</p>
+
+                <button th:text="${referenceAddress == null ? 'Start Network' : 'Connect to Network'}">Connect to Network</button>
+
+            </div>
             <div class="rounded border border-zinc-100 p-5">
-                <h3 class="text-lg font-semibold">Network</h3>
+                <h3 class="text-lg font-semibold">Network Info</h3>
                 <div class="flex justify-between">
                     <p th:text="'Status: ' + ${networkStatus}">Status: OFFLINE </p>
                     <svg class="flex-end w-5" th:classappend="${networkStatus == 'OFFLINE' ? 'fill-red-600' : 'fill-green-600'}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="50" cy="50" r="50" />
                     </svg>
+                </div>
+                <div>
                 </div>
             </div>
         </div>
