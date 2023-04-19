@@ -8,11 +8,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/")
-public class HomeView {
+public class NetworkView {
 
     private final NetworkService networkService;
 
-    public HomeView(final NetworkService networkService) {
+    public NetworkView(final NetworkService networkService) {
         this.networkService = networkService;
     }
 
@@ -20,10 +20,9 @@ public class HomeView {
     @GetMapping
     public ModelAndView getHomeData () {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("home");
-        mv.getModel().put("view", "home");
+        mv.setViewName("network");
+        mv.getModel().put("view", "network");
         mv.getModel().put("networkStatus", networkService.getStatus().name());
-        mv.getModel().put("name", "Phil");
 
         return mv;
     }

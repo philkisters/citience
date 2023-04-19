@@ -8,22 +8,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/")
-public class HomeView {
+public class DataView {
 
-    private final NetworkService networkService;
-
-    public HomeView(final NetworkService networkService) {
-        this.networkService = networkService;
-    }
 
 
     @GetMapping
     public ModelAndView getHomeData () {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("home");
-        mv.getModel().put("view", "home");
-        mv.getModel().put("networkStatus", networkService.getStatus().name());
-        mv.getModel().put("name", "Phil");
+        mv.setViewName("data");
+        mv.getModel().put("view", "data");
 
         return mv;
     }
