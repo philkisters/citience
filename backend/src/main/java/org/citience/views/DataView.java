@@ -7,13 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/data")
 public class DataView {
 
-
-
     @GetMapping
-    public ModelAndView getHomeData () {
+    public ModelAndView getDataData () {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("data");
         mv.getModel().put("view", "data");

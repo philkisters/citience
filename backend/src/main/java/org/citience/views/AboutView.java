@@ -7,21 +7,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/network")
-public class NetworkView {
+@RequestMapping("/about")
+public class AboutView {
 
     private final NetworkService networkService;
 
-    public NetworkView(final NetworkService networkService) {
+    public AboutView(final NetworkService networkService) {
         this.networkService = networkService;
     }
 
 
     @GetMapping
-    public ModelAndView getNetworkData () {
+    public ModelAndView getAboutData () {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("network");
-        mv.getModel().put("view", "network");
+        mv.setViewName("about");
+        mv.getModel().put("view", "about");
         mv.getModel().put("networkStatus", networkService.getStatus().name());
 
         return mv;
