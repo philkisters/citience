@@ -5,5 +5,15 @@ public enum NetworkStatus {
     CONNECTING,
     ONLINE,
     DISCONNECTED,
-    ERROR
+    ERROR;
+
+    public String getColor() {
+        return switch (this) {
+            case CONNECTING -> "orange";
+            case ONLINE -> "green";
+            case DISCONNECTED -> "sky";
+            case ERROR -> "red";
+            default -> "stone";
+        };
+    }
 }

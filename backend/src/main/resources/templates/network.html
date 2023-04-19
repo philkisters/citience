@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/default.html}">
+      layout:decorate="~{/layout/default.html}" lang="en">
 <head>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/main.css">
@@ -13,16 +13,19 @@
 
 
                 <p th:text="'Node name: ' + ${nodeName}">Node name: ~</p>
-                <p th:text="'Reference Address: ' + ${referenceAddress}">Reference Address: 'None'</p>
+                <p th:text="'Node address: ' + ${nodeAddress}">Node Address: ~</p>
+                <p th:text="'Reference Address: ' + ${referenceAddress}">Reference Address: ~</p>
 
-                <button th:text="${referenceAddress == null ? 'Start Network' : 'Connect to Network'}">Connect to Network</button>
+                <form th:action="@{/network/start}" method="post">
+                    <button type="submit" class="" th:text="${referenceAddress == null ? 'Start Network' : 'Connect to Network'}">Connect to Network</button>
+                </form>
 
             </div>
             <div class="rounded border border-zinc-100 p-5">
                 <h3 class="text-lg font-semibold">Network Info</h3>
                 <div class="flex justify-between">
                     <p th:text="'Status: ' + ${networkStatus}">Status: OFFLINE </p>
-                    <svg class="flex-end w-5" th:classappend="${networkStatus == 'OFFLINE' ? 'fill-red-600' : 'fill-green-600'}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="flex-end w-5" th:classappend="${'fill-' + networkStatus.getColor() + '-600'}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="50" cy="50" r="50" />
                     </svg>
                 </div>
@@ -30,9 +33,6 @@
                 </div>
             </div>
         </div>
-        <h1 th:text="'Welcome, ' + ${name} + '!'"/>
-
-
     </section>
 </body>
 </html>

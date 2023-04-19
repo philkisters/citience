@@ -12,11 +12,6 @@ spring:
       ddl-auto: update
     database-platform: 'org.hibernate.dialect.PostgreSQLDialect'
 
-node:
-  id: 'Philipp'
-  identityPath: 'C:\Users\Philipp\Entwicklung\Java\citience\backend\src\main\resources'
-
 network:
-  reference: ''
   # Defines the time after which a connection to the referenced SkABNet is aborted
   timeout: 60000
