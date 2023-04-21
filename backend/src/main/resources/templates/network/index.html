@@ -11,14 +11,19 @@
             <div class="flex-grow-1 rounded border border-zinc-100 md:col-span-2 lg:col-span-3 p-5">
                 <h3 class="text-lg font-semibold">Network Configuration</h3>
 
-
                 <p th:text="'Node name: ' + ${nodeName}">Node name: ~</p>
                 <p th:text="'Node address: ' + ${nodeAddress}">Node Address: ~</p>
                 <p th:text="'Reference Address: ' + ${referenceAddress}">Reference Address: ~</p>
 
-                <form th:action="@{/network/start}" method="post">
-                    <button type="submit" class="" th:text="${referenceAddress == null ? 'Start Network' : 'Connect to Network'}">Connect to Network</button>
-                </form>
+                <div class="flex mt-2">
+                    <form th:if="${notOnline}" th:action="@{/network/start}" method="post">
+                        <button type="submit" class="py-2 px-4 font-semibold text-gray-900 bg-green-600 hover:bg-green-400 rounded" th:text="${referenceAddress == null ? 'Start Network' : 'Connect to Network'}">Connect to Network</button>
+                    </form>
+
+                    <a class="ml-4 py-2 px-4 font-semibold text-gray-900 bg-blue-600 hover:bg-blue-400 rounded" th:href="@{/network/settings}">Edit Network Settings</a>
+
+                </div>
+
 
             </div>
             <div class="rounded border border-zinc-100 p-5">
@@ -33,6 +38,9 @@
                 </div>
             </div>
         </div>
+        <script>
+
+        </script>
     </section>
 </body>
 </html>

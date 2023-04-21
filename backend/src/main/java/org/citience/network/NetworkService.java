@@ -6,6 +6,7 @@
 package org.citience.network;
 
 import com.typesafe.config.ConfigFactory;
+import org.apache.catalina.Store;
 import org.citience.communication.CommunicationService;
 import org.citience.communication.events.CommunicationEvent;
 import org.citience.communication.events.SensorCreationEvent;
@@ -54,13 +55,12 @@ public class NetworkService implements NetworkAccess {
 
     private final NodeConfiguration nodeConfiguration;
     private final CommunicationService communicationService;
+    private final ConfigurationRepository configurationRepository;
 
 
     private Configuration networkConfig;
-
     private NetworkStatus currentStatus;
     private Throwable lastException;
-
     private DrasylAddress referenceAddress;
     private String nodeName;
 
@@ -69,6 +69,7 @@ public class NetworkService implements NetworkAccess {
                    CommunicationService communicationService, ConfigurationRepository configurationRepository) throws DrasylException {
         this.nodeConfiguration = nodeConfiguration;
         this.communicationService = communicationService;
+        this.configurationRepository = configurationRepository;
 
         configurationRepository.findFirstByModule("network").ifPresentOrElse(this::setConfiguration, () -> {
             Configuration newConfig = new Configuration("network");
@@ -171,6 +172,8 @@ public class NetworkService implements NetworkAccess {
 
     public void setReferenceAddress(String referenceAddress) {
         this.referenceAddress = new DrasylAddress(IdentityPublicKey.of(referenceAddress));
+        networkConfig.addParameter(REFERENCE_ADDRESS, referenceAddress);
+        configurationRepository.save(networkConfig);
     }
 
     public void startLocalNode() {
@@ -213,5 +216,11 @@ public class NetworkService implements NetworkAccess {
 
     public String getNodeName() {
         return nodeName;
+    }
+
+    public void setNodeName(final String nodeName) {
+        this.nodeName = nodeName;
+        networkConfig.addParameter(NODE_NAME, nodeName);
+        configurationRepository.save(networkConfig);
     }
 }

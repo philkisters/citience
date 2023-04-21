@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/default.html}" lang="en">
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="flex justify-around">
+    <div class="rounded border border-zinc-100 p-5">
+      <form th:action="@{/network/updateInfo}" method="post">
+        <div class="grid gap-2">
+          <h3 class="text-lg font-semibold">Update Network Configuration</h3>
+
+          <label class="flex">
+            Node Name:
+            <input type="text" name="nodeName" th:value="${nodeName}" class="ml-2" />
+          </label>
+          <p class="p-2 text-red-600" th:if="${referenceAddressError != null && !referenceAddressError.isBlank()}" th:text="${'Reference Address invalid: ' + referenceAddressError}"></p>
+          <label>
+            Reference Address:
+            <input type="text" name="referenceAddress" th:text="${referenceAddress}" />
+          </label>
+
+          <div class="flex justify-between">
+            <a class="py-2 px-4 font-semibold text-gray-900 bg-orange-600 hover:bg-orange-400 rounded" href="/network">Back</a>
+            <button class="py-2 px-4 font-bold text-gray-900 bg-green-600 hover:bg-green-400 rounded" type="submit">Update</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+
+  </script>
+</section>
+
+</body>
+</html>
