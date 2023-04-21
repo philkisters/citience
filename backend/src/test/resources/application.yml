@@ -11,12 +11,5 @@ spring:
       ddl-auto: update
     database-platform: 'org.hibernate.dialect.PostgreSQLDialect'
 
-node:
-  id: "Test"
-  # For Github-Runner Tests
-  identityPath: '/home/runner/work/citience/citience/backend/src/test/resources'
-  # For local Tests
-  # identityPath: 'C:\Users\Philipp\Entwicklung\Java\citience\backend\src\test\resources'
-
 network:
-  reference: ""
+  timeout: 60000
