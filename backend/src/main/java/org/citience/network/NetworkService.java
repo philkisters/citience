@@ -117,6 +117,7 @@ public class NetworkService implements NetworkAccess {
                     else {
                         log.info("We are online. Let's go!");
                     }
+                    startLocalNode();
                     currentStatus = NetworkStatus.ONLINE;
                 }
                 else if (event instanceof NodeOfflineEvent) {

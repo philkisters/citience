@@ -23,6 +23,9 @@ public class NetworkView {
         this.networkService = networkService;
         this.modelAndView = new ModelAndView();
         this.modelAndView.getModel().put("view", "network");
+    }
+
+    private void updateModel() {
         this.modelAndView.getModel().put("nodeName", networkService.getNodeName());
         this.modelAndView.getModel().put("networkStatus", networkService.getStatus());
         this.modelAndView.getModel().put("referenceAddress", networkService.getReferenceAddress() == null ? null : networkService.getReferenceAddress().getSerializedAddress());
@@ -34,20 +37,20 @@ public class NetworkView {
     public ModelAndView getNetworkData () {
         modelAndView.setViewName("network/index");
         modelAndView.getModel().put("referenceAddressError", "");
+        this.updateModel();
         return modelAndView;
     }
 
     @PostMapping("/start")
     public RedirectView startNetwork() {
-        networkService.start().thenAccept((Void unused) -> {
-            networkService.startLocalNode();
-        });
+        networkService.start();
         return new RedirectView("/network");
     }
 
     @GetMapping("/settings")
     public ModelAndView getSettingsData() {
         modelAndView.setViewName("network/settings");
+        this.updateModel();
         return modelAndView;
     }
 
