@@ -20,7 +20,7 @@
           <p class="p-2 text-red-600" th:if="${referenceAddressError != null && !referenceAddressError.isBlank()}" th:text="${'Reference Address invalid: ' + referenceAddressError}"></p>
           <label>
             Reference Address:
-            <input type="text" name="referenceAddress" th:text="${referenceAddress}" />
+            <input type="text" name="referenceAddress" th:value="${referenceAddress}" />
           </label>
 
           <div class="flex justify-between">

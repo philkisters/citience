@@ -31,6 +31,7 @@ public class NetworkView {
         this.modelAndView.getModel().put("referenceAddress", networkService.getReferenceAddress() == null ? null : networkService.getReferenceAddress().getSerializedAddress());
         this.modelAndView.getModel().put("nodeAddress", networkService.getAddress() == null ? null : networkService.getAddress().getSerializedAddress());
         this.modelAndView.getModel().put("notOnline", (networkService.getStatus() != NetworkStatus.ONLINE && networkService.getStatus() != NetworkStatus.CONNECTING));
+        this.modelAndView.getModel().put("startedPeers", networkService.getStartedPeers());
     }
 
     @GetMapping
@@ -65,6 +66,8 @@ public class NetworkView {
                 modelAndView.getModel().put("referenceAddressError", e.getMessage());
                 return new RedirectView("/network/settings");
             }
+        } else {
+            networkService.removeReferenceAddress();
         }
 
         return new RedirectView("/network");

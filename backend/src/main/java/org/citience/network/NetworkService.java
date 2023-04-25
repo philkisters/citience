@@ -37,6 +37,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -223,5 +224,19 @@ public class NetworkService implements NetworkAccess {
         this.nodeName = nodeName;
         networkConfig.addParameter(NODE_NAME, nodeName);
         configurationRepository.save(networkConfig);
+    }
+
+    public void removeReferenceAddress() {
+        this.referenceAddress = null;
+        networkConfig.addParameter(REFERENCE_ADDRESS, "");
+        configurationRepository.save(networkConfig);
+    }
+
+    public List<PeerInfo> getJoiningPeers() {
+        return skABnetNode.getJoiningPeersInfo();
+    }
+
+    public List<PeerInfo> getStartedPeers() {
+        return skABnetNode.getStartedPeersInfo();
     }
 }
