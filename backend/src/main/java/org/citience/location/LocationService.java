@@ -60,7 +60,7 @@ public class LocationService {
         return addressLocation;
     }
 
-    public GPSLocation updateGpsLocation(double lat, double lon) {
+    public void updateGpsLocation(double lat, double lon) {
 
         if (GPSLocation.isValidLocation(lat, lon)) {
             this.gpsLocation.setLatitude(lat);
@@ -69,10 +69,9 @@ public class LocationService {
             this.locationConfig.addParameter(LONGITUDE, String.valueOf(lon));
             locationConfig = configurationRepository.save(locationConfig);
         }
-        return this.gpsLocation;
     }
 
-    public AddressLocation updateAddressLocation(String city, String district, String borough, String street, String number, String postalCode) {
+    public void updateAddressLocation(String city, String district, String borough, String street, String number, String postalCode) {
 
         this.addressLocation.setCity(city);
         this.addressLocation.setDistrict(district);
@@ -87,7 +86,5 @@ public class LocationService {
         locationConfig.addParameter(NUMBER, number);
         locationConfig.addParameter(POSTAL_CODE, postalCode);
         locationConfig = configurationRepository.save(locationConfig);
-
-        return this.addressLocation;
     }
 }
