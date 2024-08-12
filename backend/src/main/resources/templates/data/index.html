@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default.html}" lang="en">
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <section layout:fragment="content">
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="flex-grow-1 rounded border border-zinc-100 md:col-span-2 lg:col-span-3 p-5 row-span-2">
+                <h1 class="text-xl">Sensors and Data</h1>
+
+            </div>
+            <div class="rounded border border-zinc-100 p-5 ">
+                <h3 class="text-lg font-semibold">Own Info</h3>
+                <p th:text="${'Node Name: ' + nodeName}">Node Name: Example Node</p>
+                <p th:text="${'Address: ' + addressLocation.toShortInfo()}">Address: Example Street 30, 22575 Hamburg</p>
+                <p th:text="${'GPS-Position: ' + gpsLocation.getLatitude() + ', ' + gpsLocation.getLongitude()}">GPS-Position: 11.12313, 59.231131</p>
+                <p></p>
+                <div class="flex justify-between mt-2">
+                    <a href="/data/updateInfo" class="py-2 px-4 font-semibold text-gray-900 bg-green-600 hover:bg-green-400 rounded">
+                        Edit Info
+                    </a>
+                </div>
+            </div>
+            <div class="rounded border border-zinc-100 p-5 md:col-span-2 lg:col-span-3">
+                <h3 class="text-lg font-semibold">Known Sensors</h3>
+                <div class="flex justify-between">
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

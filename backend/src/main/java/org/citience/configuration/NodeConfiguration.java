@@ -7,27 +7,14 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class NodeConfiguration {
-    @Value("${network.reference}")
-    private String referenceAddress;
-    @Value("${node.id}")
-    private String nodeId;
-
-    @Value("${node.identityPath}")
-    private String identityPath;
+    @Value("${network.timeout}")
+    private long timeout;
 
     public SkABnetConfig getSkABNetConfig() {
         return new SkABnetConfig(ConfigFactory.load("skabnet"));
     }
 
-    public String getNodeId() {
-        return nodeId;
-    }
-
-    public String getReferenceAddress() {
-        return referenceAddress;
-    }
-
-    public String getIdentityPath() {
-        return identityPath;
+    public long getTimeout() {
+        return timeout;
     }
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/main.css">
+    <title>Citience Node</title>
+</head>
+<body>
+  <nav class="flex flex-row justify-between px-3 bg-zinc-100">
+      <div id="logo" class="px-4 py-2 text-xl text-green-600 font-extrabold">
+          Citience
+      </div>
+      <div class="flex flex-row">
+          <div class="px-4 py-2 hover:bg-green-400" th:classappend="${view == 'home' ? 'bg-green-600' : ''}">
+              <a href="/">Home</a>
+          </div>
+          <div class="px-4 py-2 hover:bg-green-400" th:classappend="${view == 'data' ? 'bg-green-600 active' : ''}">
+              <a href="/data">Data</a>
+          </div>
+          <div class="px-4 py-2 hover:bg-green-400" th:classappend="${view == 'network' ? 'bg-green-600 active' : ''}">
+              <a href="/network">Network</a>
+          </div>
+          <div class="px-4 py-2 hover:bg-green-400" th:classappend="${view == 'about' ? 'bg-green-600 active' : ''}">
+              <a href="/about">About</a>
+          </div>
+      </div>
+  </nav>
+  <div class="container mt-4 mx-auto">
+      <section layout:fragment="content">
+        <p>Page content goes here</p>
+      </section>
+  </div>
+</body>
+</html>

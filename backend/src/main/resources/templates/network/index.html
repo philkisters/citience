@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default.html}" lang="en">
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <section layout:fragment="content">
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="flex-grow-1 rounded border border-zinc-100 md:col-span-2 lg:col-span-3 p-5">
+                <h3 class="text-lg font-semibold">Network Configuration</h3>
+
+                <p th:text="'Node name: ' + ${nodeName}">Node name: ~</p>
+                <p th:text="'Node address: ' + ${nodeAddress}">Node Address: ~</p>
+                <p th:text="'Reference Address: ' + ${referenceAddress}">Reference Address: ~</p>
+
+                <div class="flex mt-2">
+                    <form th:if="${notOnline}" th:action="@{/network/start}" method="post">
+                        <button type="submit" class="py-2 px-4 font-semibold text-gray-900 bg-green-600 hover:bg-green-400 rounded" th:text="${referenceAddress == null ? 'Start Network' : 'Connect to Network'}">Connect to Network</button>
+                    </form>
+                    <div th:if="${notOnline}" class="flex">
+                        <a class="ml-4 py-2 px-4 font-semibold text-gray-900 bg-blue-600 hover:bg-blue-400 rounded" th:href="@{/network/settings}">Edit Network Settings</a>
+                    </div>
+                </div>
+            </div>
+            <div class="rounded border border-zinc-100 p-5">
+                <h3 class="text-lg font-semibold">Network Info</h3>
+                <div class="flex justify-between">
+                    <p th:text="'Status: ' + ${networkStatus}">Status: OFFLINE </p>
+                    <svg class="flex-end w-5" th:classappend="${'fill-' + networkStatus.getColor() + '-600'}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="50" />
+                    </svg>
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+        <div id="peer-list" th:if="${!notOnline}" class="p-4">
+            <h2 class="text-lg">Started Peers</h2>
+            <hr>
+            <div class="mt-4 flex grid gap-4 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+
+                <div th:each="peer: ${startedPeers}" class="border border-zinc-100 rounded p-4">
+                    <p class="text-center truncate" th:text="${peer.getNameId().toString()}">Demo Peer</p>
+                    <p class="mt-2 truncate" th:text="${peer.getNumericId().toString()}">010111101010...</p>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+</body>
+</html>

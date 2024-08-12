@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default.html}" lang="en">
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="flex justify-around">
+        <div class="rounded border border-zinc-100 p-5">
+            <form th:action="@{/data/updateInfo}" method="post">
+                <div class="grid gap-2">
+                    <h3 class="text-lg font-semibold">Update Location Info</h3>
+
+                    <label class="flex">
+                        City:
+                        <input type="text" name="city" th:value="${addressLocation.getCity()}" class="ml-2" />
+                    </label>
+                    <label class="flex">
+                        District:
+                        <input type="text" name="district" th:value="${addressLocation.getDistrict()}" class="ml-2" />
+                    </label>
+                    <label class="flex">
+                        Borough:
+                        <input type="text" name="borough" th:value="${addressLocation.getBorough()}" class="ml-2" />
+                    </label>
+                    <label class="flex">
+                        Postal Code:
+                        <input type="text" name="postalCode" th:value="${addressLocation.getPostalCode()}" class="ml-2" />
+                    </label>
+                    <label class="flex">
+                        Street:
+                        <input type="text" name="street" th:value="${addressLocation.getStreet()}" class="ml-2" />
+                    </label>
+                    <label class="flex">
+                        Number:
+                        <input type="text" name="number" th:value="${addressLocation.getNumber()}" class="ml-2" />
+                    </label>
+                    <p class="p-2 text-red-600" th:if="${gpsError != null && !gpsError.isBlank()}" th:text="${'GPS-Location invalid: ' + gpsError}"></p>
+                    <label>
+                        Latitude:
+                        <input type="text" name="latitude" th:value="${gpsLocation.getLatitude()}" />
+                    </label>
+                    <label>
+                        Latitude:
+                        <input type="text" name="longitude" th:value="${gpsLocation.getLongitude()}" />
+                    </label>
+
+                    <div class="flex justify-between">
+                        <a class="py-2 px-4 font-semibold text-gray-900 bg-orange-600 hover:bg-orange-400 rounded" href="/network">Back</a>
+                        <button class="py-2 px-4 font-bold text-gray-900 bg-green-600 hover:bg-green-400 rounded" type="submit">Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+
+    </script>
+</section>
+
+</body>
+</html>
